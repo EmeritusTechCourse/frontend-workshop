@@ -3,18 +3,21 @@ import { Home } from "./routes/Home";
 import { Cart } from "./routes/Cart";
 import { NavBar } from "./components/NavBar/NavBar";
 import styles from './App.module.css';
+import { BasketProvider } from "./hooks/useBasket";
 export const App = () => {
     return <div className={styles.background}>   
-    <BrowserRouter >
+    <BasketProvider>
+      <BrowserRouter >
 
-        <NavBar>
-            <input type="text"/>
-            </NavBar> 
-      <Routes>
-        <Route path="/" element={<Home/>}/> 
-        <Route path="/cart" element={<Cart/>}/> 
+          <NavBar>
+              <input type="text"/>
+              </NavBar> 
+        <Routes>
+          <Route path="/" element={<Home/>}/> 
+          <Route path="/cart" element={<Cart/>}/> 
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </BasketProvider>
     </div>;
 }

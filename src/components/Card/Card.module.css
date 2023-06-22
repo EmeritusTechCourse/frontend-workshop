@@ -4,4 +4,5 @@
     margin: 25px;
     background: white;
     border-radius: 8px;
+    min-height: 400px;
 };

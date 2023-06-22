@@ -3,7 +3,7 @@ import {rest} from 'msw';
 import {setupServer} from 'msw/node';
 import { dummyProductResponse } from "../dummy-data/product-response";
 import { useEffect } from "react";
-import {render} from '@testing-library/react';
+import {render, waitFor} from '@testing-library/react';
 import {screen} from '@testing-library/dom'
 
 describe('useProducts', () => {
@@ -26,15 +26,17 @@ describe('useProducts', () => {
             }, []);
             return <div>
                 {productsHook.products.map(product => {
-                    return <div>{product.id}</div>
+                    return <div key={product.id}>{product.id}</div>
                 })}
             </div>
         }
         render(<DummyComponent/>);
         //Assert
-        for(const product of dummyProductResponse.products){
-            const element = screen.queryAllByText(product.id);
-            expect(element).not.toBeNull();
-        }
+        await waitFor(() => {
+            for(const product of dummyProductResponse.products){
+                const element = screen.queryByText(product.id);
+                expect(element).not.toBeNull();
+            }
+        });
     });
 });
